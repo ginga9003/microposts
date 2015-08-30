@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   # 地域は50文字以内
   validates :location, presence: false, length: { maximum: 50 }
   
-  # 誕生日は日付の妥当性をチェック
+  # 誕生日
   # 本当はdate_selectを使いたかったが現状すごく難しそうだったので、こちらで
   # 拡張機能実装時にでも対応予定
   validates :birthday, presence: false

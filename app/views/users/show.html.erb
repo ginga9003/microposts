@@ -1,8 +1,41 @@
-<h1>
-  <%= gravatar_for @user %>
-  <% if @user.nickname != nil %>
-    <%= @user.nickname %>
-  <% else %>
-    <%= @user.name %>
-  <% end %>
-</h1>
+<div class="row">
+  <div class="col-sm-6 col-sm-offset-3">
+    <ul class="media-list">
+      <li class="media">
+        <div class="media-left">
+          <%= gravatar_for @user %>
+        </div>
+        <div class="media-body">
+          <h1 class="media-heading" style="text-align: left;">
+          <% if @user.nickname != nil %>
+            <%= @user.nickname %>
+          <% else %>
+            <%= @user.name %>
+          <% end %>
+          </h1>
+          <% if @user.nickname != nil %>
+            <%= @user.name %>
+          <% end %>
+        </div>
+      </li>
+    </ul>
+    <div class="panel panel-primary">
+      <div class="panel-body"><% if @user.description %><%= simple_format(h(@user.description)) %><% end %></div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <h4>地域</h4>
+        <div class="panel panel-primary">
+          <div class="panel-body"><% if @user.location %><%= @user.location %><% end %></div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <h4>誕生日</h4>
+        <div class="panel panel-primary">
+          <div class="panel-body"><% if @user.birthday %><%= @user.birthday %><% end %></div>
+        </div>
+      </div>
+    </div>
+    <div><%= link_to "Update", edit_user_path, class: "btn btn-primary" %></div>
+  </div>
+</div>
