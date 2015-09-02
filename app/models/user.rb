@@ -34,5 +34,30 @@ class User < ActiveRecord::Base
   # rake db:migrate
   
   has_secure_password
-  has_many :microposts  #1ユーザは複数の投稿（microposts）を持つという意味（１対多）
+  has_many :microposts  # 1ユーザは複数の投稿（microposts）を持つという意味（１対多）
+  
+  has_many :following_relationships, class_name: "Relationship",
+                                    foreign_key: "follower_id",
+                                    dependent: :destroy;  # Userを削除すると、Relationshipテーブルの関連も削除される
+  has_many :following_users, through: :following_relationships, source: :followed                            
+
+  has_many :follower_relationships, class_name: "Relationship",
+                                    foreign_key: "followed_id",
+                                    dependent: :destroy;  # Userを削除すると、Relationshipテーブルの関連も削除される
+  has_many :follower_users, through: :follower_relationships, source: :follower                         
+
+  # 他のユーザーをフォローする
+  def follow(other_user)
+    following_relationships.create(followed_id: other_user.id)
+  end
+  
+  # フォローしているユーザーをアンフォローする
+  def unfollow(other_user)
+    following_relationships.find_by(followed_id: other_user.id).destroy
+  end
+  
+  # あるユーザーをフォローしているかどうか？
+  def following?(other_user)
+    following_users.include?(other_user)
+  end
 end
