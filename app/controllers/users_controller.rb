@@ -21,6 +21,9 @@ class UsersController < ApplicationController
   # 登録成功後表示画面
   def show
     @user = User.find(params[:id])
+    
+    # 全投稿を取得
+    @microposts = @user.microposts
   end
   
   # ユーザ情報変更

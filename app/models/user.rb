@@ -34,4 +34,5 @@ class User < ActiveRecord::Base
   # rake db:migrate
   
   has_secure_password
+  has_many :microposts  #1ユーザは複数の投稿（microposts）を持つという意味（１対多）
 end

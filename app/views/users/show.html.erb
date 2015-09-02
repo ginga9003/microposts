@@ -1,41 +1,55 @@
 <div class="row">
-  <div class="col-sm-6 col-sm-offset-3">
-    <ul class="media-list">
-      <li class="media">
-        <div class="media-left">
-          <%= gravatar_for @user %>
+  <aside class="col-md-4">
+    <!--<section class="user_info" style="overflow: none;">-->
+      <ul class="media-list" style="margin-top: 10px;">
+        <li class="media">
+          <div class="media-left">
+            <%= gravatar_for @user %>
+          </div>
+          <div class="media-body">
+            <h1 class="media-heading" style="text-align: left;">
+            <% if @user.nickname != nil %>
+              <%= @user.nickname %>
+            <% else %>
+              <%= @user.name %>
+            <% end %>
+            </h1>
+            <% if @user.nickname != nil %>
+              <%= @user.name %>
+            <% end %>
+          </div>
+        </li>
+      </ul>
+      <div class="panel panel-primary">
+        <div class="panel-body"><% if @user.description %><%= simple_format(h(@user.description)) %><% end %></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <h4>地域</h4>
+          <div class="panel panel-primary">
+            <div class="panel-body"><% if @user.location %><%= @user.location %><% end %></div>
+          </div>
         </div>
-        <div class="media-body">
-          <h1 class="media-heading" style="text-align: left;">
-          <% if @user.nickname != nil %>
-            <%= @user.nickname %>
-          <% else %>
-            <%= @user.name %>
-          <% end %>
-          </h1>
-          <% if @user.nickname != nil %>
-            <%= @user.name %>
-          <% end %>
-        </div>
-      </li>
-    </ul>
-    <div class="panel panel-primary">
-      <div class="panel-body"><% if @user.description %><%= simple_format(h(@user.description)) %><% end %></div>
-    </div>
-    <div class="row">
-      <div class="col-sm-6">
-        <h4>地域</h4>
-        <div class="panel panel-primary">
-          <div class="panel-body"><% if @user.location %><%= @user.location %><% end %></div>
+        <div class="col-sm-6">
+          <h4>誕生日</h4>
+          <div class="panel panel-primary">
+            <div class="panel-body"><% if @user.birthday %><%= @user.birthday %><% end %></div>
+          </div>
         </div>
       </div>
-      <div class="col-sm-6">
-        <h4>誕生日</h4>
-        <div class="panel panel-primary">
-          <div class="panel-body"><% if @user.birthday %><%= @user.birthday %><% end %></div>
-        </div>
-      </div>
-    </div>
-    <div><%= link_to "Update", edit_user_path, class: "btn btn-primary" %></div>
+      <div><%= link_to "Modify", edit_user_path, class: "btn btn-primary" %></div>
+    <!--</section>-->
+  </aside>
+  <div class="col-md-8">
+<% if @user.microposts.any? %>
+    <h3>Microposts (<%= @user.microposts.count %>)</h3>
+    <ol class="microposts">
+<%#      <%= render @microposts 
+      <%= render partial: 'microposts/micropost', collection: @microposts %> 
+      <% @microposts.each do |micropost| %>
+        <%= render partial: 'microposts/micropost', locals: { micropost: micropost } %>
+      <% end %>
+    </ol>
+<% end %>
   </div>
 </div>
