@@ -14,10 +14,10 @@
         <h4 class="color-grey">@<%= @user.name %></h4>
         <% end %>
     
-        <div class="f09em"><% if @user.description %><%= simple_format(h(@user.description)) %><% end %></div>
-        <p><span class="glyphicon glyphicon-map-marker"></span><% if @user.location %> <%= @user.location %><% end %></p>
-        <p><span class="glyphicon glyphicon-time"></span><% if @user.birthday %> <%= @user.birthday %><% end %></p>
-        <div><%= link_to "Modify", edit_user_path, class: "btn btn-primary" %></div>
+        <div class="f09em"><% if !@user.description.empty? %><%= simple_format(h(@user.description)) %><% else %>no comment<% end %></div>
+        <p><span class="glyphicon glyphicon-map-marker"></span><% if !@user.location.empty? %> <%= @user.location %><% else %> 未設定<% end %></p>
+        <p><span class="glyphicon glyphicon-time"></span><% if !@user.birthday.empty? %> <%= @user.birthday %><% else %> 未設定<% end %></p>
+        <div><%= link_to "Modify", edit_user_path, class: "btn btn-primary" %></div
       </section>
     </aside>
   </div>
@@ -38,7 +38,9 @@
               <div class="clearfix pRelative">
                 <div class="pull-left">
                   <div style="position: absolute; top: -40px;" class="bg-white gravatar_border gravatar_size">
+                    <%= link_to user_path(following_user.id) do %>
                     <%= gravatar_for following_user %>
+                    <% end %>
                   </div>
                 </div>
                 <div id="follow_form" class="pull-right mgt10">

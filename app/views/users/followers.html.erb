@@ -38,7 +38,9 @@
               <div class="clearfix pRelative">
                 <div class="pull-left">
                   <div style="position: absolute; top: -40px;" class="bg-white gravatar_border gravatar_size">
+                    <%= link_to user_path(follower_user.id) do %>
                     <%= gravatar_for follower_user %>
+                    <% end %>
                   </div>
                 </div>
                 <div id="follow_form" class="pull-right mgt10">
