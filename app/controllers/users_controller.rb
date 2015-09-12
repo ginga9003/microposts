@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:edit, :update, :destroy]  # edit, update, destroyの処理の前にuserを設定する
-  
+
   def new
     @user = User.new
   end
@@ -24,6 +24,9 @@ class UsersController < ApplicationController
     
     # 全投稿を取得
     @microposts = @user.microposts
+    
+    # フォロー、フォロワー情報取得
+    set_user_basic_info
   end
   
   # ユーザ情報変更
@@ -40,6 +43,29 @@ class UsersController < ApplicationController
       # 登録失敗
       render 'edit'
     end
+  end
+  
+  # フォローしているユーザ一覧
+  def followings
+    @user = User.find(params[:id])
+    
+    #rabinding.pry
+    # フォローしているユーザ一覧を取得
+    @following_users = @user.following_users
+
+    # フォロー、フォロワー情報取得
+    set_user_basic_info
+  end
+  
+  # フォローしてくれてるユーザ一覧
+  def followers
+    @user = User.find(params[:id])
+  
+    # フォロワー覧を取得
+    @follower_users = @user.follower_users
+
+    # フォロー、フォロワー情報取得
+    set_user_basic_info
   end
   
   private
@@ -62,5 +88,12 @@ class UsersController < ApplicationController
   # ユーザ情報を取得する
   def set_user
     @user = User.find(params[:id])
+  end
+  
+  # ユーザ情報を取得する
+  def set_user_basic_info
+    @following_count = @user.following_users.length # フォロー数
+    @follower_count = @user.follower_users.length # フォロワー数
+    @post_count = @user.microposts.length # 投稿数
   end
 end

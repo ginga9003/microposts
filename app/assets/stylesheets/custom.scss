@@ -7,7 +7,7 @@ body {
 }
 
 section {
-  overflow: auto;
+/*  overflow: auto;*/
 }
 
 textarea {
@@ -28,7 +28,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: 3em;
+  font-size: 2em;
   letter-spacing: -2px;
   margin-bottom: 30px;
   text-align: center;
@@ -124,11 +124,14 @@ aside {
       line-height: 1;
     }
     h1 {
-      font-size: 1.4em;
+      font-size: 1.8em;
       text-align: left;
       letter-spacing: -1px;
+      margin: 0;
+      /*
       margin-bottom: 3px;
       margin-top: 0px;
+      */
     }
   }
 }
@@ -136,14 +139,28 @@ aside {
 .gravatar {
   float: left;
   margin-right: 10px;
+
+  border-radius: 5px;
+}
+.gravatar_size {
+  width: 90px;
+}
+.gravatar-lg {
+  border-radius: 5px;
+}
+.gravatar_lg_size {
+  width: 210px;
 }
 
 .gravatar_edit {
   margin-top: 15px;
 }
+.gravatar_border {
+  border: 5px solid #fff;
+  border-radius: 5px;
+}
 
 /*  microposts  */
-
 .microposts {
   list-style: none;
   padding: 0;
@@ -175,7 +192,10 @@ aside {
   }
 }
 
-aside {
+#follow {
+  position: absolute;
+  top: -200px;
+  
   textarea {
     height: 100px;
     margin-bottom: 5px;
@@ -189,3 +209,104 @@ span.picture {
   }
 }
 
+.follow-box {
+  padding: 0; 
+  border: 1px solid #d3d3d3; 
+  border-radius: 10px; 
+  height: 300px;
+  
+  .back-color-area {
+    height: 80px; 
+    border-top-left-radius: 10px; 
+    border-top-right-radius: 10px;
+  }
+}
+
+.user-basic-info {
+  width: 100%; 
+  height: 70px; 
+  background-color: #f3f3f3; 
+  border-bottom: 1px solid #d3d3d3;
+  
+  ul {
+    text-align: center;
+    padding: 0;
+    
+    li {
+      display: inline-block;
+      margin-left: 20px;
+      text-align: center;
+      padding: 10px 0;
+      
+      dl dd {
+        font-size: 1.5em;
+      }
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+.color-grey { color: #737373; }
+
+.bg-type0 { background-color: #E60012; }
+.bg-type1 { background-color: #F39800; }
+.bg-type2 { background-color: #FFF100; }
+.bg-type3 { background-color: #009944; }
+.bg-type4 { background-color: #0068B7; }
+.bg-type5 { background-color: #1D2088; }
+.bg-type6 { background-color: #920783; }
+
+.bg-white { background-color: #fff; }
+
+.f05em { font-size: 0.5em; }
+.f06em { font-size: 0.6em; }
+.f07em { font-size: 0.7em; }
+.f08em { font-size: 0.8em; }
+.f09em { font-size: 0.9em; }
+.f10em { font-size: 1.0em; }
+.f11em { font-size: 1.1em; }
+.f12em { font-size: 1.2em; }
+.f13em { font-size: 1.3em; }
+.f14em { font-size: 1.4em; }
+.f15em { font-size: 1.5em; }
+.f20em { font-size: 2.0em; }
+
+.aRight { text-align: right; }
+.aLeft { text-align: left; }
+
+.mgl5 { margin-left: 5px; }
+.mgl10 { margin-left: 10px; }
+.mgl15 { margin-left: 15px; }
+.mgl20 { margin-left: 20px; }
+.mgl30 { margin-left: 30px; }
+.mgl40 { margin-left: 40px; }
+.mgl50 { margin-left: 50px; }
+
+.mgr5 { margin-right: 5px; }
+.mgr10 { margin-right: 10px; }
+.mgr15 { margin-right: 15px; }
+.mgr20 { margin-right: 20px; }
+.mgr30 { margin-right: 30px; }
+.mgr40 { margin-right: 40px; }
+.mgr50 { margin-right: 50px; }
+
+.mgt5 { margin-top: 5px; }
+.mgt10 { margin-top: 10px; }
+.mgt15 { margin-top: 15px; }
+.mgt20 { margin-top: 20px; }
+.mgt30 { margin-top: 30px; }
+.mgt40 { margin-top: 40px; }
+.mgt50 { margin-top: 50px; }
+
+.mgb5 { margin-bottom: 5px; }
+.mgb10 { margin-bottom: 10px; }
+.mgb15 { margin-bottom: 15px; }
+.mgb20 { margin-bottom: 20px; }
+.mgb30 { margin-bottom: 30px; }
+.mgb40 { margin-bottom: 40px; }
+.mgb50 { margin-bottom: 50px; }
+
+.pRelative { position: relative; }
+.pAbsolute { position: absolute; }

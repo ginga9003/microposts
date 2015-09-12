@@ -60,4 +60,9 @@ class User < ActiveRecord::Base
   def following?(other_user)
     following_users.include?(other_user)
   end
+
+  # あるユーザーにフォローされているかどうか？
+  def followed?(other_user)
+    follower_users.include?(other_user)
+  end
 end

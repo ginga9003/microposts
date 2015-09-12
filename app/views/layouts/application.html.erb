@@ -8,11 +8,17 @@
 </head>
 <body>
   <%= render 'layouts/header' %>
-  <div class="container">
-    <% flash.each do |message_type, message| %>
-      <div class="alert alert-<%= message_type %>"><%= message %></div>
-    <% end %>
-    <%= yield %>
+  <% if controller.action_name == "followings" || controller.action_name == "followers" %>
+  <div style="width: 100%; height: 180px; margin-top: -10px;"<% if controller.action_name == "followings" || controller.action_name == "followers" %> class="bg-type<%= @user.color %>"<% end %>></div>
+  <%= render 'layouts/user_basic_info' %>
+  <% end %>
+  <div style="width: 100%; height: 100%; background-color: #fff;">
+    <div class="container">
+      <% flash.each do |message_type, message| %>
+        <div class="alert alert-<%= message_type %>"><%= message %></div>
+      <% end %>
+      <%= yield %>
+    </div>
   </div>
 </body>
 </html>

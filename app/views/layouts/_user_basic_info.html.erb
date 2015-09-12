@@ -1,0 +1,28 @@
+  <div class="user-basic-info">
+    <ul>
+      <li>
+        <%= link_to user_path(@user) do %>
+        <dl>
+          <dt>posts</dt>
+          <dd><%= @post_count %></dd>
+        </dl>
+        <% end %>
+      </li>
+      <li<% if controller.action_name == "followings" %> class="sub-menu-selected"<% end %>>
+        <%= link_to followings_user_path(@user) do %>
+        <dl>
+          <dt>followings</dt>
+          <dd><%= @following_count %></dd>
+        </dl>
+        <% end %>
+      </li>
+      <li<% if controller.action_name == "followers" %> class="sub-menu-selected"<% end %>>
+        <%= link_to followers_user_path(@user) do %>
+        <dl>
+          <dt>followers</dt>
+          <dd><%= @follower_count %></dd>
+        </dl>
+        <% end %>
+      </li>
+    </ul>
+  </div>
