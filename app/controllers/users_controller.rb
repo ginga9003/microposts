@@ -8,6 +8,9 @@ class UsersController < ApplicationController
   # ユーザ登録
   def create
     @user = User.new(user_params)
+    @user.description = ""
+    @user.location = ""
+    @user.birthday = ""
     if @user.save
       # 登録成功
       flash[:success] = "Welcome to the MICROPOSTS!"
