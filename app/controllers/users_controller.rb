@@ -14,7 +14,7 @@ class UsersController < ApplicationController
     if @user.save
       # 登録成功
       flash[:success] = "Welcome to the MICROPOSTS!"
-      redirect_to @user # redirect_to user_path(@user)と同じ意味
+      redirect_to login_path # redirect_to user_path(@user)と同じ意味
     else
       # 登録失敗
       render 'new'

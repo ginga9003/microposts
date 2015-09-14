@@ -22,4 +22,5 @@ function setColor(colorIndex) {
     colorIndex = 0;
   }
   $("#small-selector").colorbox('setColorIndex', parseInt(colorIndex));
+  $("#colorIndex").val(0);
 }
