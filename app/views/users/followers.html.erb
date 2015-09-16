@@ -14,13 +14,6 @@
         <h4 class="color-grey">@<%= @user.name %></h4>
         <% end %>
     
-        <div class="f09em"><%= simple_format(h(@user.description)) %></div>
-        <p><span class="glyphicon glyphicon-map-marker"></span><%= @user.location %></p>
-        <p><span class="glyphicon glyphicon-time"></span><%= @user.birthday %></p>    
-
-<%
-=begin
-%>
         <!-- description -->
         <div class="f09em">
           <% if !@user.description.blank? %>
@@ -35,7 +28,7 @@
           <span class="glyphicon glyphicon-map-marker"></span>
           <% if !@user.location.blank? %>
             <%= @user.location %>
-          <% else %> %>
+          <% else %>
             未設定
           <% end %>
         </p>
@@ -48,9 +41,7 @@
           <% else %>
             未設定
           <% end %>
-<%
-=end
-%>
+        </p>
         <div><%= link_to "Modify", edit_user_path, class: "btn btn-primary" %></div>
       </section>
     </aside>
