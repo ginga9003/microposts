@@ -60,4 +60,10 @@ class User < ActiveRecord::Base
   def following?(other_user)
     following_users.include?(other_user)
   end
+  
+  # タイムライン（自分とフォローしているユーザのつぶやき）をすべて取得
+  def feed_items
+    # SELECT * FROM Miscroposts WHERE user_id = フォローしているユーザ OR user_id = 自分
+    Micropost.where(user_id: following_user_ids + [self.id])
+  end
 end
