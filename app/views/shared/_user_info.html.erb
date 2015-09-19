@@ -1,4 +1,43 @@
 <%= link_to gravatar_for(current_user, size: 50), current_user %>
-<h1><%= current_user.name %></h1>
-<span><%= link_to "view my profile", current_user %></span>
-<span><%= pluralize(current_user.microposts.count, "micropost") %></span>
+<% if current_user.nickname != nil %>
+  <%= link_to user_path(current_user) do %>
+  <h1 class="mgt5"><%= current_user.nickname %></h1>
+  <% end %>
+<% else %>
+  <%= link_to user_path(current_user) do %>
+  <h1 class="mgt5">@<%= current_user.name %></h1>
+  <% end %>
+<% end %>
+</h1>
+<% if current_user.nickname != nil %>
+  <p class="color-grey">@<%= current_user.name %></p>
+<% end %>
+
+  <div class="user-basic-info">
+    <ul>
+      <li>
+        <%= link_to user_path(current_user) do %>
+        <dl>
+          <dt>posts</dt>
+          <dd><%= @post_count %></dd>
+        </dl>
+        <% end %>
+      </li>
+      <li<% if controller.action_name == "followings" %> class="sub-menu-selected"<% end %>>
+        <%= link_to followings_user_path(current_user) do %>
+        <dl>
+          <dt>followings</dt>
+          <dd><%= @following_count %></dd>
+        </dl>
+        <% end %>
+      </li>
+      <li<% if controller.action_name == "followers" %> class="sub-menu-selected"<% end %>>
+        <%= link_to followers_user_path(current_user) do %>
+        <dl>
+          <dt>followers</dt>
+          <dd><%= @follower_count %></dd>
+        </dl>
+        <% end %>
+      </li>
+    </ul>
+  </div>

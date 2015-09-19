@@ -66,4 +66,9 @@ class User < ActiveRecord::Base
     # SELECT * FROM Miscroposts WHERE user_id = フォローしているユーザ OR user_id = 自分
     Micropost.where(user_id: following_user_ids + [self.id])
   end
+
+  # あるユーザーにフォローされているかどうか？
+  def followed?(other_user)
+    follower_users.include?(other_user)
+  end
 end

@@ -1,0 +1,105 @@
+<% if logged_in? %>
+<div class="row">
+  <!-- user info -->
+  <div class="col-md-3 pRelative">
+    <aside id="follow">
+      <section>
+        <div class="mgb20 bg-white gravatar_border gravatar_lg_size"><%= gravatar_for @user, { class: "gravatar-lg", size: 200 } %></div>
+        <% if !@user.nickname.blank? %>
+        <h1><%= @user.nickname %></h1>
+        <% else %>
+        <h1>@<%= @user.name %></h1>
+        <% end %>
+        <% if !@user.nickname.blank? %>
+        <h4 class="color-grey">@<%= @user.name %></h4>
+        <% end %>
+        
+        <!-- description -->
+        <div class="f09em">
+          <% if !@user.description.blank? %>
+          <%= simple_format(h(@user.description)) %>
+          <% else %>
+          no comment
+          <% end %>
+        </div>
+
+        <!-- locaiton -->
+        <p>
+          <span class="glyphicon glyphicon-map-marker"></span>
+          <% if !@user.location.blank? %>
+            <%= @user.location %>
+          <% else %>
+            未設定
+          <% end %>
+        </p>
+
+        <!-- birthday -->
+        <p>
+          <span class="glyphicon glyphicon-time"></span>
+          <% if !@user.birthday.blank? %>
+            <%= @user.birthday %>
+          <% else %>
+            未設定
+          <% end %>
+        </p>
+        <div><%= link_to "Modify", edit_user_path, class: "btn btn-primary" %></div
+      </section>
+    </aside>
+  </div>
+  
+  <!-- following users -->
+  <div class="col-md-9 mgt20">
+    <% if @following_users.length == 0 %>
+      <p>no following user</p>
+    <% else %>
+      <% @following_users.each_with_index do |following_user, i| %>
+      <% if i % 3 == 0 %>
+      <div class="row">
+      <% end %>
+        <div class="col-sm-6 col-md-4">
+          <div class="follow-box mgb20">
+            <div class="bg-type<%= following_user.color %> back-color-area"></div>
+            <div style="padding: 0 10px 10px 10px;">
+              <div class="clearfix pRelative">
+                <div class="pull-left">
+                  <div style="position: absolute; top: -40px;" class="bg-white gravatar_border gravatar_size">
+                    <%= link_to user_path(following_user.id) do %>
+                    <%= gravatar_for following_user %>
+                    <% end %>
+                  </div>
+                </div>
+                <div id="follow_form" class="pull-right mgt10">
+                  <div class="text-center">
+                    <% if current_user.following?(following_user) %>
+                      <%= form_for(current_user.following_relationships.find_by(followed_id: following_user.id),
+                          html: { method: :delete },
+                          remote: true) do |f| %>
+                      <%= f.submit "following", class: "btn" %>
+                          
+                      <% end %>
+                    <% else %>
+                      <%= render 'follow' %>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+              <h3 class="mgt5"><%= link_to following_user.nickname, user_path(following_user.id) %></h3>
+              <h4 class="f09em color-grey">@<%= following_user.name %></h4>
+              <p class="f09em color-grey"><%= truncate(following_user.description, length: 80) %></p>
+            </div>
+          </div>
+        </div>
+      <% if i % 3 == 2 %>
+      </div>
+      <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+<% else %>
+  <div class="center jumbotron">
+    <h1>Welcome to the Microposts</h1>
+    
+    <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary"  %>
+  </div>
+<% end %>

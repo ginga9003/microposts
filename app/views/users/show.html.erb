@@ -1,48 +1,33 @@
 <div class="row">
-  <aside class="col-md-4">
-    <!--<section class="user_info" style="overflow: none;">-->
-      <ul class="media-list" style="margin-top: 10px;">
-        <li class="media">
-          <div class="media-left">
-            <%= gravatar_for @user %>
-          </div>
-          <div class="media-body">
-            <h1 class="media-heading" style="text-align: left;">
-            <% if @user.nickname != nil %>
-              <%= @user.nickname %>
-            <% else %>
-              <%= @user.name %>
-            <% end %>
-            </h1>
-            <% if @user.nickname != nil %>
-              <%= @user.name %>
-            <% end %>
-          </div>
-        </li>
-      </ul>
-      <div class="panel panel-primary">
-        <div class="panel-body"><% if @user.description %><%= simple_format(h(@user.description)) %><% end %></div>
-      </div>
-      <div class="row">
-        <div class="col-sm-6">
-          <h4>地域</h4>
-          <div class="panel panel-primary">
-            <div class="panel-body"><% if @user.location %><%= @user.location %><% end %></div>
+  <!-- left side(userinfo) -->
+  <aside class="col-md-3">
+    <ul class="media-list" style="margin-top: 10px;">
+      <li class="media">
+        <div class="media-left">
+          <div class="bg-white gravatar_border gravatar_size">
+            <%= gravatar_for(@user, size: 70) %>
           </div>
         </div>
-        <div class="col-sm-6">
-          <h4>誕生日</h4>
-          <div class="panel panel-primary">
-            <div class="panel-body"><% if @user.birthday %><%= @user.birthday %><% end %></div>
-          </div>
+        <div class="media-body">
+          <h1 class="media-heading mgt20" style="text-align: left;">
+          <% if @user.nickname != nil %>
+            <%= @user.nickname %>
+          <% else %>
+            @<%= @user.name %>
+          <% end %>
+          </h1>
+          <% if @user.nickname != nil %>
+            @<%= @user.name %>
+          <% end %>
         </div>
-      </div>
-      <div><%= link_to "Modify", edit_user_path, class: "btn btn-primary" %></div>
-    <!--</section>-->
+      </li>
+    </ul>
+    <%= render 'layouts/user_basic_info' %>
   </aside>
-  <div class="col-md-8">
+  
+  <!-- right side(microposts) -->
+  <div class="col-md-9">
 <%= render 'follow_form' if logged_in? %>
-
 <% if @user.microposts.any? %>
     <h3>Microposts (<%= @user.microposts.count %>)</h3>
     <ol class="microposts">

@@ -13,6 +13,6 @@ class RelationshipsController < ApplicationController
     @user = current_user.following_relationships.find(params[:id]).followed
 
     # アンフォロー
-    curren_user.unfollow(@user)
+    current_user.unfollow(@user)
   end
 end
