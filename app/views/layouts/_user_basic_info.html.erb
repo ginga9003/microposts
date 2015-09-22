@@ -3,7 +3,7 @@
       <li>
         <%= link_to user_path(@user) do %>
         <dl>
-          <dt>posts</dt>
+          <dt><%= t('common.posts') %></dt>
           <dd><%= @post_count %></dd>
         </dl>
         <% end %>
@@ -11,7 +11,7 @@
       <li<% if controller.action_name == "followings" %> class="sub-menu-selected"<% end %>>
         <%= link_to followings_user_path(@user) do %>
         <dl>
-          <dt>followings</dt>
+          <dt><%= t('common.follow.followings') %></dt>
           <dd><%= @following_count %></dd>
         </dl>
         <% end %>
@@ -19,8 +19,16 @@
       <li<% if controller.action_name == "followers" %> class="sub-menu-selected"<% end %>>
         <%= link_to followers_user_path(@user) do %>
         <dl>
-          <dt>followers</dt>
+          <dt><%= t('common.follow.followers') %></dt>
           <dd><%= @follower_count %></dd>
+        </dl>
+        <% end %>
+      </li>
+      <li<% if controller.action_name == "favorites" %> class="sub-menu-selected"<% end %>>
+        <%= link_to favorites_user_path(@user) do %>
+        <dl>
+          <dt><%= t('common.favorites') %></dt>
+          <dd><%= @favorite_count %></dd>
         </dl>
         <% end %>
       </li>

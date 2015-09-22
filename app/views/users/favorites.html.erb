@@ -1,0 +1,68 @@
+<% if logged_in? %>
+<div class="row">
+  <!-- user info -->
+  <div class="col-md-3 pRelative">
+    <aside id="follow">
+      <section>
+        <div class="mgb20 bg-white gravatar_border gravatar_lg_size"><%= gravatar_for @user, { class: "gravatar-lg", size: 200 } %></div>
+        <% if !@user.nickname.blank? %>
+        <h1><%= @user.nickname %></h1>
+        <% else %>
+        <h1>@<%= @user.name %></h1>
+        <% end %>
+        <% if !@user.nickname.blank? %>
+        <h4 class="color-grey">@<%= @user.name %></h4>
+        <% end %>
+    
+        <!-- description -->
+        <div class="f09em">
+          <% if !@user.description.blank? %>
+          <%= simple_format(h(@user.description)) %>
+          <% else %>
+            <%= t('common.noComment') %>
+          <% end %>
+        </div>
+
+        <!-- locaiton -->
+        <p>
+          <span class="glyphicon glyphicon-map-marker"></span>
+          <% if !@user.location.blank? %>
+            <%= @user.location %>
+          <% else %>
+            <%= t('common.noSetting') %>
+          <% end %>
+        </p>
+
+        <!-- birthday -->
+        <p>
+          <span class="glyphicon glyphicon-time"></span>
+          <% if !@user.birthday.blank? %>
+            <%= @user.birthday %>
+          <% else %>
+            <%= t('common.noSetting') %>
+          <% end %>
+        </p>
+        <div><%= link_to t('common.modify'), edit_user_path, class: "btn btn-primary" %></div>
+      </section>
+    </aside>
+  </div>
+  
+  <!-- right side(favorites) -->
+  <div class="col-md-9">
+    <% if @favorite_posts.length == 0 %>
+    <p>no favorites</p>
+    <% else %>
+    <h3><%= t('users.favorite.count') %>(<%= @favorite_posts.length %>)</h3>
+    <ol class="microposts">
+<%#      <%= render @microposts 
+      <%= render partial: 'microposts/micropost', collection: @microposts %> 
+      <% @favorite_posts.each do |micropost| %>
+        <%= render partial: 'microposts/micropost', locals: { micropost: micropost } %>
+      <% end %>
+    </ol>
+    <% end %>
+  </div>
+</div>
+<% else %>
+  <%= render 'shared/welcome' %>
+<% end %>

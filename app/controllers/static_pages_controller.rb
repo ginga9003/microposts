@@ -5,6 +5,7 @@ class StaticPagesController < ApplicationController
       @following_count = current_user.following_users.length # フォロー数
       @follower_count = current_user.follower_users.length # フォロワー数
       @post_count = current_user.microposts.length # 投稿数
+      #@favorite_count = current_user.user_favorite_microposts.length # お気に入り数
 
       @microposts = current_user.microposts.build
       

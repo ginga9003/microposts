@@ -35,7 +35,10 @@ class User < ActiveRecord::Base
   
   has_secure_password
   has_many :microposts  # 1ユーザは複数の投稿（microposts）を持つという意味（１対多）
-  
+
+  # ----------------------------
+  # ここからフォロー関連
+  # ----------------------------
   has_many :following_relationships, class_name: "Relationship",
                                     foreign_key: "follower_id",
                                     dependent: :destroy;  # Userを削除すると、Relationshipテーブルの関連も削除される
@@ -61,14 +64,70 @@ class User < ActiveRecord::Base
     following_users.include?(other_user)
   end
   
+  # あるユーザーにフォローされているかどうか？
+  def followed?(other_user)
+    follower_users.include?(other_user)
+  end
+  
   # タイムライン（自分とフォローしているユーザのつぶやき）をすべて取得
   def feed_items
     # SELECT * FROM Miscroposts WHERE user_id = フォローしているユーザ OR user_id = 自分
     Micropost.where(user_id: following_user_ids + [self.id])
   end
-
-  # あるユーザーにフォローされているかどうか？
-  def followed?(other_user)
-    follower_users.include?(other_user)
+  # ----------------------------
+  # ここまでフォロー関連
+  # ----------------------------
+  
+  # ----------------------------
+  # ここからリツイート関連
+  # ----------------------------
+  # リツイートする
+  def retweet(micropost_id)
+    #following_relationships.create(followed_id: other_user.id)
   end
+  
+  # リツイートをキャンセルする
+  def retweet_cancel(micropost_id)
+    #following_relationships.find_by(followed_id: other_user.id).destroy
+  end
+  # ----------------------------
+  # ここまでリツイート関連
+  # ----------------------------
+  
+  # ----------------------------
+  # ここからお気に入り関連
+  # ----------------------------
+  has_many :user_favorites, class_name: "Favorite",
+                            foreign_key: "user_id",
+                            dependent: :destroy;  # Userを削除すると、Favoriteテーブルの関連も削除される
+  has_many :user_favorite_microposts, through: :user_favorites, source: :favorite                            
+
+#  has_many :micropost_favorites, class_name: "Favorite",
+#                                 foreign_key: "favorite_id",
+#                                 dependent: :destroy;  # Userを削除すると、Favoriteテーブルの関連も削除される
+#  has_many :micropost_favorite_users, through: :micropost_favorites, source: :user   
+  
+  # あるツイートをお気に入り登録しているかどうか？
+  def favorite?(favorite)
+    user_favorite_microposts.include?(favorite)
+  end
+  
+  # あるツイートがお気に入り登録されているかどうか？
+#  def favorited?(user)
+#    micropost_favorite_users.include?(user)
+#  end
+  
+  # お気に入りに登録する
+  def favorite(favorite)
+    user_favorites.create(favorite_id: favorite.id)
+  end
+  
+  # お気に入りをキャンセルする
+  def favorite_cancel(favorite)
+    user_favorites.find_by(favorite_id: favorite.id).destroy
+  end
+  # ----------------------------
+  # ここまでお気に入り関連
+  # ----------------------------
+
 end

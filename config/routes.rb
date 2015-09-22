@@ -7,8 +7,6 @@ Rails.application.routes.draw do
   # モデルを持たないが、任意のURLで処理を行いたい場合の
   # ルーティングを定義
   get    'signup', to: 'users#new'
-  #get    'users/:id/followings', to: 'users#followings', :as :followings
-  #get    'followers/:id', to: 'users#followers'
   get    'login'  => 'sessions#new'
   post   'login'  => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
@@ -19,9 +17,11 @@ Rails.application.routes.draw do
     member do
       get :followings
       get :followers
+      get :favorites
     end
   end
   resources :sessions, only: [:new, :create, :destroy]
   resources :microposts
+  resources :favorites, only: [:create, :destroy]
   resources :relationships, only: [:create, :destroy]
 end

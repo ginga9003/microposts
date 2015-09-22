@@ -1,0 +1,6 @@
+    <%= form_for(current_user.user_favorites.find_by(favorite_id: micropost.id),
+        html: { id: "unFavorite_form_" + micropost.id.to_s, method: :delete },
+        remote: true) do |f| %>
+      <span class="glyphicon glyphicon-star" onclick="execUnFavorite(<%= micropost.id %>);"></span>
+      <span><%= micropost.micropost_favorite_users.length %></span>
+    <% end %>

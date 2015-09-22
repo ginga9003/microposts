@@ -15,11 +15,11 @@ class SessionsController < ApplicationController
       # セッションにユーザIDを格納
       session[:user_id] = @user.id
       
-      flash[:info] = "logged in as #{@user.name}"
+      flash[:info] = I18n.t('controller.sessions.login') + @user.name
       redirect_to @user
     else
       # 一致しない場合
-      flash[:danger] = "invalid email/password combination"
+      flash[:danger] = I18n.t('controller.sessions.invalid_email')
       render "new"
     end
   end

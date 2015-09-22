@@ -15,4 +15,5 @@
 //= require bootstrap-sprockets
 //= require jquery.colorbox.min.js
 //= require color.js
+//= require common.js
 //= require_tree .

@@ -6,7 +6,7 @@ class MicropostsController < ApplicationController
     @micropost = current_user.microposts.build(micropost_params)
     if @micropost.save
       # 登録成功の場合
-      flash[:success] = "Micropost created!"
+      flash[:success] = I18n.t('controller.microposts.create_message')
       
       # トップページへリダイレクト
       redirect_to root_url
@@ -24,7 +24,7 @@ class MicropostsController < ApplicationController
     
     # 削除
     @micropost.destroy
-    flash[:success] = "Micropost deleted"
+    flash[:success] = I18n.t('controller.microposts.delete_message')
     
     # リファラがあれば元のURLへ。それ以外はrootへ
     redirect_to request.referrer || root_url

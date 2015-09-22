@@ -1,6 +1,6 @@
 <%= form_for(current_user.follower_relationships.find_by(following_id: follower_user.id),
       html: { method: :delete },
       remote: true) do |f| %>
-  <%= f.submit "followed", class: "btn" %>
+  <%= f.submit t('common.follow.follow'), class: "btn" %>
       
 <% end %>

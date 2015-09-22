@@ -13,7 +13,7 @@ class UsersController < ApplicationController
     @user.birthday = ""
     if @user.save
       # 登録成功
-      flash[:success] = "Welcome to the MICROPOSTS!"
+      flash[:success] = I18n.t('controller.users.success_message')
       redirect_to login_path # redirect_to user_path(@user)と同じ意味
     else
       # 登録失敗
@@ -26,7 +26,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     
     # 全投稿を取得
-    @microposts = @user.microposts
+    @feed_items = @user.feed_items.includes(:user).order(created_at: :desc)
     
     # フォロー、フォロワー情報取得
     set_user_basic_info
@@ -40,7 +40,7 @@ class UsersController < ApplicationController
   def update
     if @user.update(user_params)
       # 更新成功
-      flash[:success] = "Update Completed!"
+      flash[:success] = I18n.t('controller.users.update_message')
       redirect_to current_user
     else
       # 登録失敗
@@ -71,6 +71,18 @@ class UsersController < ApplicationController
     set_user_basic_info
   end
   
+  # お気に入り一覧
+  def favorites
+    @user = User.find(params[:id])
+    
+    # お気に入り一覧を取得
+    @favorite_posts = @user.user_favorite_microposts
+
+    #binding.pry
+    # フォロー、フォロワー情報取得
+    set_user_basic_info
+  end
+
   private
   
   # 入力パラメータの許可
@@ -98,5 +110,6 @@ class UsersController < ApplicationController
     @following_count = @user.following_users.length # フォロー数
     @follower_count = @user.follower_users.length # フォロワー数
     @post_count = @user.microposts.length # 投稿数
+    @favorite_count = @user.user_favorite_microposts.length # お気に入り数
   end
 end

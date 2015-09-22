@@ -174,7 +174,7 @@ aside {
   }
   .content {
     display: block;
-    margin-left: 60px;
+/*    margin-left: 60px;*/
     img {
       display: block;
       padding: 5px 0;
@@ -182,8 +182,8 @@ aside {
   }
   .timestamp {
     color: $gray-light;
-    display: block;
-    margin-left: 60px;
+/*    display: block;*/
+    margin-left: 10px;
   }
   .gravatar {
     float: left;
@@ -246,6 +246,10 @@ span.picture {
       }
     }
   }
+}
+
+.glyphicon-star:hover, .glyphicon-star-empty:hover, .glyphicon-retweet:hover {
+  cursor: pointer;
 }
 
 .color-grey { color: #737373; }

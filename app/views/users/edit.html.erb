@@ -4,14 +4,14 @@
   });
 </script>
 
-<h1>Settings</h1>
+<h1><%= t('users.edit.title') %></h1>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <%= form_for(@user) do |f| %>
       <%= render 'shared/error_messages', object: f.object %>
   
-      <p><%= gravatar_for @user %></p>
+      <p><%= gravatar_for @user, { class: "gravatar-lg", size: 80 } %></p>
       
       <div class="form-group">
         <%= f.label :name %>
@@ -35,7 +35,7 @@
       </div>
 
       <div class="form-group">
-        <%= f.label :password_confirmation, "Confirmation" %>
+        <%= f.label :password_confirmation, t('common.profile.password_confirmation') %>
         <%= f.password_field :password_confirmation, class: "form-control"  %>
       </div>
 -->
@@ -89,7 +89,7 @@
         </div>
       </div>
       
-      <%= f.submit "Update", class: "btn btn-large btn-primary" %>
+      <%= f.submit t('users.edit.update'), class: "btn btn-large btn-primary" %>
     <% end %>
   </div>
 </div>

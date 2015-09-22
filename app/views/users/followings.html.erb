@@ -19,7 +19,7 @@
           <% if !@user.description.blank? %>
           <%= simple_format(h(@user.description)) %>
           <% else %>
-          no comment
+          <%= t('common.noComment') %>
           <% end %>
         </div>
 
@@ -29,7 +29,7 @@
           <% if !@user.location.blank? %>
             <%= @user.location %>
           <% else %>
-            未設定
+            <%= t('common.noSetting') %>
           <% end %>
         </p>
 
@@ -39,10 +39,10 @@
           <% if !@user.birthday.blank? %>
             <%= @user.birthday %>
           <% else %>
-            未設定
+            <%= t('common.noSetting') %>
           <% end %>
         </p>
-        <div><%= link_to "Modify", edit_user_path, class: "btn btn-primary" %></div
+        <div><%= link_to t('common.modify'), edit_user_path, class: "btn btn-primary" %></div
       </section>
     </aside>
   </div>
@@ -74,7 +74,7 @@
                       <%= form_for(current_user.following_relationships.find_by(followed_id: following_user.id),
                           html: { method: :delete },
                           remote: true) do |f| %>
-                      <%= f.submit "following", class: "btn" %>
+                      <%= f.submit t('common.follow.following'), class: "btn" %>
                           
                       <% end %>
                     <% else %>
@@ -97,9 +97,5 @@
   </div>
 </div>
 <% else %>
-  <div class="center jumbotron">
-    <h1>Welcome to the Microposts</h1>
-    
-    <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary"  %>
-  </div>
+  <%= render 'shared/welcome' %>
 <% end %>

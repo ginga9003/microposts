@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
       # URLを保存
       store_location
       
-      flash[:danger] = "Please log in." # ログインを促すメッセージ表示
+      flash[:danger] = I18n.t('controller.application.login_message') # ログインを促すメッセージ表示
       redirect_to login_url
     end
   end

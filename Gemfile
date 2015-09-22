@@ -33,7 +33,7 @@ gem 'autoprefixer-rails'
 gem 'bcrypt', '~> 3.1.7'
 
 # pry
-#gem 'pry-byebug', group: :development
+gem 'pry-byebug', group: :development
 
 # Use Unicorn as the app server
 # gem 'unicorn'

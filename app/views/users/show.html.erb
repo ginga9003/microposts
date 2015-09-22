@@ -27,16 +27,7 @@
   
   <!-- right side(microposts) -->
   <div class="col-md-9">
-<%= render 'follow_form' if logged_in? %>
-<% if @user.microposts.any? %>
-    <h3>Microposts (<%= @user.microposts.count %>)</h3>
-    <ol class="microposts">
-<%#      <%= render @microposts 
-      <%= render partial: 'microposts/micropost', collection: @microposts %> 
-      <% @microposts.each do |micropost| %>
-        <%= render partial: 'microposts/micropost', locals: { micropost: micropost } %>
-      <% end %>
-    </ol>
-<% end %>
+    <h3><%= t('static_pages.home.feed') %></h3>
+    <%= render 'shared/feed' %>
   </div>
 </div>
