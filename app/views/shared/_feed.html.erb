@@ -1,5 +1,8 @@
 <% if @feed_items.any? %>
   <ol class="microposts">
-    <%= render @feed_items %>    
+    <%# render @feed_items %>
+    <% @feed_items.each do |micropost| %>
+      <%= render partial: 'microposts/micropost', locals: { micropost_org: micropost } %>
+    <% end %>
   </ol>
 <% end %>

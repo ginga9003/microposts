@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:edit, :update, :destroy]  # edit, update, destroyの処理の前にuserを設定する
+  before_action :set_user, only: [:edit, :update, :destroy, :favorites, :show]  # edit, update, destroyの処理の前にuserを設定する
 
   def new
     @user = User.new
@@ -11,6 +11,7 @@ class UsersController < ApplicationController
     @user.description = ""
     @user.location = ""
     @user.birthday = ""
+    @user.tamo = 0
     if @user.save
       # 登録成功
       flash[:success] = I18n.t('controller.users.success_message')
@@ -26,7 +27,10 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     
     # 全投稿を取得
-    @feed_items = @user.feed_items.includes(:user).order(created_at: :desc)
+    @feed_items = @user.microposts.includes(:user).order(created_at: :desc)
+    
+    # リツイート一覧を取得
+    @retweet_items = @user.retweet_items.includes(:user).includes(:retweet).order(created_at: :desc)
     
     # フォロー、フォロワー情報取得
     set_user_basic_info
@@ -52,7 +56,7 @@ class UsersController < ApplicationController
   def followings
     @user = User.find(params[:id])
     
-    #rabinding.pry
+    #binding.pry
     # フォローしているユーザ一覧を取得
     @following_users = @user.following_users
 
@@ -92,7 +96,7 @@ class UsersController < ApplicationController
       # 更新の場合
       #binding.pry
       params.require(:user).permit(:name, :nickname, :email, 
-                                   :description, :location, :birthday, :color)    
+                                   :description, :location, :birthday, :color, :tamo)    
     else
       # それ以外の場合
       params.require(:user).permit(:name, :email, :password, 
@@ -103,6 +107,7 @@ class UsersController < ApplicationController
   # ユーザ情報を取得する
   def set_user
     @user = User.find(params[:id])
+    @microposts = @user.microposts.build
   end
   
   # ユーザ情報を取得する

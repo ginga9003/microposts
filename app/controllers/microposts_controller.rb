@@ -6,6 +6,12 @@ class MicropostsController < ApplicationController
     @micropost = current_user.microposts.build(micropost_params)
     if @micropost.save
       # 登録成功の場合
+      if !@micropost.retweet_id.blank? 
+        # リツイートテーブルにも追加
+        @retweet = Micropost.find(@micropost.retweet_id)
+        current_user.retweet(@retweet)
+      end
+      
       flash[:success] = I18n.t('controller.microposts.create_message')
       
       # トップページへリダイレクト
@@ -33,6 +39,6 @@ class MicropostsController < ApplicationController
   private
   # 入力パラメータ取得
   def micropost_params
-    params.require(:micropost).permit(:content)
+    params.require(:micropost).permit(:content, :retweet_id)
   end
 end

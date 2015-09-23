@@ -22,19 +22,19 @@ class User < ActiveRecord::Base
   validates :location, presence: false, length: { maximum: 50 }
   
   # 誕生日
-  # 本当はdate_selectを使いたかったが現状すごく難しそうだったので、こちらで
-  # 拡張機能実装時にでも対応予定
   validates :birthday, presence: false
   
   # 色はデフォルトが設定されており、現状手動で変更できないのでチェック無し
   # カラーコードでもカラーインデックスでも格納できるようにstringにしている
   
-  # ちなみに列追加のコマンドは以下
-  # rails generate migration AddProfileToUser nickname:string description:string location:string birthday:string color:string
-  # rake db:migrate
-  
   has_secure_password
   has_many :microposts  # 1ユーザは複数の投稿（microposts）を持つという意味（１対多）
+
+  # タイムライン（自分とフォローしているユーザのつぶやき）をすべて取得
+  def feed_items
+    # SELECT * FROM Miscroposts WHERE user_id = フォローしているユーザ OR user_id = 自分
+    Micropost.where(user_id: following_user_ids + [self.id])
+  end
 
   # ----------------------------
   # ここからフォロー関連
@@ -68,12 +68,6 @@ class User < ActiveRecord::Base
   def followed?(other_user)
     follower_users.include?(other_user)
   end
-  
-  # タイムライン（自分とフォローしているユーザのつぶやき）をすべて取得
-  def feed_items
-    # SELECT * FROM Miscroposts WHERE user_id = フォローしているユーザ OR user_id = 自分
-    Micropost.where(user_id: following_user_ids + [self.id])
-  end
   # ----------------------------
   # ここまでフォロー関連
   # ----------------------------
@@ -81,14 +75,30 @@ class User < ActiveRecord::Base
   # ----------------------------
   # ここからリツイート関連
   # ----------------------------
+  has_many :user_retweets, class_name: "Retweet",
+                            foreign_key: "user_id",
+                            dependent: :destroy;  # Userを削除すると、Retweetテーブルの関連も削除される
+  has_many :user_retweet_microposts, through: :user_retweets, source: :retweet      
+  
   # リツイートする
-  def retweet(micropost_id)
-    #following_relationships.create(followed_id: other_user.id)
+  def retweet(retweet)
+    user_retweets.create(retweet_id: retweet.id)
   end
   
   # リツイートをキャンセルする
-  def retweet_cancel(micropost_id)
-    #following_relationships.find_by(followed_id: other_user.id).destroy
+  def retweet_cancel(retweet)
+    user_retweets.find_by(retweet_id: retweet.id).destroy
+  end
+  
+  # あるツイートをリツイートしているかどうか？
+  def retweet?(retweet)
+    user_retweet_microposts.include?(retweet)
+  end
+  
+  # リツイートをすべて取得
+  def retweet_items
+    # SELECT * FROM Miscroposts WHERE user_id = フォローしているユーザ OR user_id = 自分
+    Retweet.where(user_id: following_user_ids + [self.id]).where.not(retweet_id: nil)
   end
   # ----------------------------
   # ここまでリツイート関連
@@ -102,21 +112,11 @@ class User < ActiveRecord::Base
                             dependent: :destroy;  # Userを削除すると、Favoriteテーブルの関連も削除される
   has_many :user_favorite_microposts, through: :user_favorites, source: :favorite                            
 
-#  has_many :micropost_favorites, class_name: "Favorite",
-#                                 foreign_key: "favorite_id",
-#                                 dependent: :destroy;  # Userを削除すると、Favoriteテーブルの関連も削除される
-#  has_many :micropost_favorite_users, through: :micropost_favorites, source: :user   
-  
   # あるツイートをお気に入り登録しているかどうか？
   def favorite?(favorite)
     user_favorite_microposts.include?(favorite)
   end
-  
-  # あるツイートがお気に入り登録されているかどうか？
-#  def favorited?(user)
-#    micropost_favorite_users.include?(user)
-#  end
-  
+
   # お気に入りに登録する
   def favorite(favorite)
     user_favorites.create(favorite_id: favorite.id)

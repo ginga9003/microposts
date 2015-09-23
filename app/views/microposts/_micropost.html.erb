@@ -1,10 +1,32 @@
-<li id="micropost-<%= micropost.id %>" style="padding-left: 10px; position: relative;">
-  <!--<div style="width: 20%; background-color: #f00; z-index: -1; position: absolute; height: 100%;"></div>-->
-  <div style="display: inline-block; vertical-align: top; height: 100%; background-color: #f00;">
+<li id="micropost-<%= micropost_org.id %>" style="padding-left: 10px;">
+  
+  <% if !micropost_org.retweet_id.blank? && micropost_org.content.blank? %>
+  <!-- case of retweet -->
+  <p class="f08em">
+    <span class="glyphicon glyphicon-retweet mgr5"></span>
+    <% if !micropost_org.user.nickname.blank? %>
+    <%= micropost_org.user.nickname %>
+    <% else %>
+    @<%= micropost_org.user.name %>
+    <% end %>
+    さんがリツイート
+  </p>
+  <!-- case of retweet end -->
+  <% micropost = @retweet_items.find_by(micropost_org.id).retweet %>
+  <% else %>
+  <% micropost = micropost_org %>
+  <% end %>
+  
+  <!-- image -->
+  <div style="display: inline-block; vertical-align: top; position: relative;">
+    <% if micropost.user.tamo == 1 %>
+    <%= image_tag 'sunglass.png', :width => '45', :class => 'tamo' %>
+    <% end %>
     <%= link_to gravatar_for(micropost.user, size: 50), micropost.user %>
   </div>
+  <!-- image end -->
 
-  <div class="mgl10" style="display: inline-block;">
+  <div class="mgl10" style="display: inline-block; width: 90%;">
     <%= link_to micropost.user do %>
     <span class="user">
       <% if !micropost.user.nickname.blank? %>
@@ -21,16 +43,32 @@
       <%= t('microposts._micropost.ago') %>
     </span>
     <span class="content f13em">
-      <%= micropost.content %>
+      <%= simple_format(h(micropost.content)) %>
     </span>
+    
+    <% if !micropost.retweet_id.blank? %>
+    <!-- quote tweet -->
+    <div class="mgl20 quote">
+      <% if !@retweet_items.find_by(micropost.id).retweet.user.nickname.blank? %>
+      <span class="mgr10 fwBold f08em"><%= @retweet_items.find_by(micropost.id).retweet.user.nickname %></span>
+      <% end %>
+      <span class="f08em">@<%= @retweet_items.find_by(micropost.id).retweet.user.name %></span>
+      
+      <p><%= simple_format(h(@retweet_items.find_by(micropost.id).retweet.content)) %></p>
+    </div>
+    <!-- quote tweet end -->
+    <% end %>
     
     <!--  retweet, favorites, delete -->
     <ul class="button-area" style="margin: 0; padding: 0;">
       <li style="display: inline-block; border: 0;">
-        <span class="glyphicon glyphicon-retweet"></span>
+        <%= render partial: 'users/retweet/retweet_form', locals: { micropost: micropost } %>
+        <!--
+        <span class="glyphicon glyphicon-retweet"<% if current_user == micropost.user %> style="visibility: hidden;"<% end %>></span>
+        -->
       </li>
       <li class="mgl20" style="display: inline-block; border: 0;">
-        <%= render partial: 'users/favorite_form', locals: { micropost: micropost } %>
+        <%= render partial: 'users/favorite/favorite_form', locals: { micropost: micropost } %>
       </li>
       <% if current_user == micropost.user %>
       <li class="mgl20" style="display: inline-block; border: 0;">
@@ -40,5 +78,6 @@
       </li>
       <% end %>
     </ul>
+    <!--  retweet, favorites, delete end -->
   </div>
 </li>

@@ -252,6 +252,19 @@ span.picture {
   cursor: pointer;
 }
 
+.tamo {
+ position: absolute; 
+ top: 30%; 
+ left: 5%; 
+}
+
+.quote {
+  border: 1px solid #d3d3d3; 
+  border-radius: 10px; 
+  width: 90%; 
+  padding: 10px 10px;
+}
+
 .color-grey { color: #737373; }
 
 .bg-type0 { background-color: #E60012; }
@@ -276,6 +289,8 @@ span.picture {
 .f14em { font-size: 1.4em; }
 .f15em { font-size: 1.5em; }
 .f20em { font-size: 2.0em; }
+
+.fwBold { font-weight: bold; }
 
 .aRight { text-align: right; }
 .aLeft { text-align: left; }

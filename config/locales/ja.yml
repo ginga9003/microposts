@@ -225,6 +225,9 @@ ja:
     signUpNow: "今すぐ登録しよう！"
     posts: "microposts"
     favorites: "お気に入り"
+    tweet: "ツイート"
+    retweet: "リツイート"
+    close: "閉じる"
     noComment: "未コメント"
     noSetting: "未設定"
     follow:
@@ -274,7 +277,7 @@ ja:
   # static_pages
   static_pages:
     home:
-      feed: "Micropost Feed"
+      feed: "つぶやき"
       welcome: "ようこそ Microposts へ！"
       
   # users
@@ -303,5 +306,5 @@ ja:
         location: "住所"
         birthday: "誕生日"
         color: "背景色"
-        
+        tamo: "タモリ化"
         

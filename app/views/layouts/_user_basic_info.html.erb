@@ -24,6 +24,7 @@
         </dl>
         <% end %>
       </li>
+      <% if controller.action_name != 'show' %>
       <li<% if controller.action_name == "favorites" %> class="sub-menu-selected"<% end %>>
         <%= link_to favorites_user_path(@user) do %>
         <dl>
@@ -32,5 +33,6 @@
         </dl>
         <% end %>
       </li>
+      <% end %>
     </ul>
   </div>

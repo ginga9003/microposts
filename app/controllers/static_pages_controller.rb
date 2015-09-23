@@ -13,6 +13,11 @@ class StaticPagesController < ApplicationController
       # 投稿順に並び替え
       # includes : LEFT OUTER JOIN Users
       @feed_items = current_user.feed_items.includes(:user).order(created_at: :desc)
+      
+      # リツイート一覧を取得
+      @retweet_items = current_user.retweet_items.includes(:user).includes(:retweet).order(created_at: :desc)
+      
+      #binding.pry
     end
   end
 end

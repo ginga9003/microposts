@@ -235,6 +235,9 @@ en:
     signUpNow: "Sign up now!"
     posts: "posts"
     favorites: "favorites"
+    tweet: "tweet"
+    retweet: "retweet"
+    close: "close"
     noComment: "no comment"
     noSetting: "no setting"
     follow:
@@ -320,5 +323,5 @@ en:
         location: "location"
         birthday: "birthday"
         color: "color"
-  
+        tamo: "tamori"  
   
