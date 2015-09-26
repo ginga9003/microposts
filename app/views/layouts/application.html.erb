@@ -5,6 +5,9 @@
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
+  <% if controller.action_name == 'show' || controller.action_name == 'home' %>
+    <%= render 'layouts/infinite_scroll' %>
+  <% end %>
 </head>
 <body>
   <%= render 'layouts/header' %>
@@ -24,7 +27,6 @@
   </div>
   
   <% if !@microposts.blank? %>
-  <%# if controller.action_name == "show" || controller.action_name == "home" || controller.action_name == "favorites" %>
   <!-- retweet dialog -->
   <%= render 'shared/retweet_dialog' %>
   <% end %>

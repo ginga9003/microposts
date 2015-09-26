@@ -11,7 +11,7 @@ class RetweetsController < ApplicationController
     #binding.pry
 
     # リツイート解除
-    current_user.retweet_cancel(@favorite)
+    current_user.retweet_cancel(@retweet)
   end
 end
 

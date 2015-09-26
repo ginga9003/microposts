@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require jquery.colorbox.min.js
+//= require jquery.infinitescroll.min.js
 //= require color.js
 //= require common.js
 //= require_tree .

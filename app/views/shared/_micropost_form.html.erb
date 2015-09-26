@@ -3,5 +3,7 @@
   <div class="field">
     <%= f.text_area :content, placeholder: t('shared._micropost_form.placeholder') %>
   </div>
+  <span class="f15em glyphicon glyphicon-camera" style="margin: -5px 0 10px 5px;"></span>
+  <%= f.file_field :image, :style => 'display: none;', :id => 'image_uploader' %>
   <%= f.submit t('shared._micropost_form.post'), class: "btn btn-primary" %>
 <% end %>

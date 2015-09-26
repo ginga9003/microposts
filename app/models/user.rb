@@ -88,6 +88,7 @@ class User < ActiveRecord::Base
   # リツイートをキャンセルする
   def retweet_cancel(retweet)
     user_retweets.find_by(retweet_id: retweet.id).destroy
+    user_retweet_microposts.find_by(id: retweet_id).destroy
   end
   
   # あるツイートをリツイートしているかどうか？
@@ -98,7 +99,7 @@ class User < ActiveRecord::Base
   # リツイートをすべて取得
   def retweet_items
     # SELECT * FROM Miscroposts WHERE user_id = フォローしているユーザ OR user_id = 自分
-    Retweet.where(user_id: following_user_ids + [self.id]).where.not(retweet_id: nil)
+    Micropost.where(id: user_retweet_micropost_ids)
   end
   # ----------------------------
   # ここまでリツイート関連

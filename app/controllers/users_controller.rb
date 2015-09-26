@@ -12,6 +12,7 @@ class UsersController < ApplicationController
     @user.location = ""
     @user.birthday = ""
     @user.tamo = 0
+    @user.paging = 0
     if @user.save
       # 登録成功
       flash[:success] = I18n.t('controller.users.success_message')
@@ -26,12 +27,14 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     
-    # 全投稿を取得
-    @feed_items = @user.microposts.includes(:user).order(created_at: :desc)
+    # 全投稿を取得 & ページネーション
+    @feed_items = @user.microposts.includes(:user).order(created_at: :desc).page(params[:page])
+    @current_page = params[:page]
     
     # リツイート一覧を取得
-    @retweet_items = @user.retweet_items.includes(:user).includes(:retweet).order(created_at: :desc)
+    @retweet_items = @user.retweet_items.includes(:user).order(created_at: :desc)
     
+    #binding.pry
     # フォロー、フォロワー情報取得
     set_user_basic_info
   end
@@ -82,6 +85,11 @@ class UsersController < ApplicationController
     # お気に入り一覧を取得
     @favorite_posts = @user.user_favorite_microposts
 
+    # リツイート一覧を取得
+    @retweets = Micropost.where.not(retweet_id: nil);
+    @retweet_items = Micropost.where(id: @retweets.pluck(:retweet_id)).includes(:user).order(created_at: :desc)
+    # pluckで特定カラムのデータ一覧を取得する
+
     #binding.pry
     # フォロー、フォロワー情報取得
     set_user_basic_info
@@ -96,7 +104,7 @@ class UsersController < ApplicationController
       # 更新の場合
       #binding.pry
       params.require(:user).permit(:name, :nickname, :email, 
-                                   :description, :location, :birthday, :color, :tamo)    
+                                   :description, :location, :birthday, :color, :tamo, :paging)    
     else
       # それ以外の場合
       params.require(:user).permit(:name, :email, :password, 
@@ -107,7 +115,6 @@ class UsersController < ApplicationController
   # ユーザ情報を取得する
   def set_user
     @user = User.find(params[:id])
-    @microposts = @user.microposts.build
   end
   
   # ユーザ情報を取得する
@@ -116,5 +123,6 @@ class UsersController < ApplicationController
     @follower_count = @user.follower_users.length # フォロワー数
     @post_count = @user.microposts.length # 投稿数
     @favorite_count = @user.user_favorite_microposts.length # お気に入り数
+    @microposts = @user.microposts.build
   end
 end

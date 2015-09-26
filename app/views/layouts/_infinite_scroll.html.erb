@@ -1,0 +1,9 @@
+<script type="text/javascript">
+$(function(){
+  $('#microposts').infinitescroll({
+    navSelector  : '#page-nav',          // この部分をスクロールが通ったら、ページングを実施
+    nextSelector : '#page-nav a:first',  // 次のページへのリンク（自動に書き換える、例の中で一回使ったものが次はmy_url/3になる）
+    itemSelector : '#microposts li',         // my_urlから取ったhtmlのid=targetの部分のliだけ表示する
+  });
+});
+</script>

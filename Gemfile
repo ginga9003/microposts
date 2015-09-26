@@ -35,6 +35,14 @@ gem 'bcrypt', '~> 3.1.7'
 # pry
 gem 'pry-byebug', group: :development
 
+# pagination
+gem 'kaminari'
+
+# image upload
+gem 'carrierwave'
+#gem 'rmagick'
+gem 'cloudinary'
+
 # Use Unicorn as the app server
 # gem 'unicorn'
 

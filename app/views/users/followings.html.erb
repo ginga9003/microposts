@@ -68,7 +68,7 @@
                     <% end %>
                   </div>
                 </div>
-                <div id="follow_form" class="pull-right mgt10">
+                <div id="follow_form_<%= following_user.id %>" class="pull-right mgt10">
                   <div class="text-center">
                     <% if current_user.following?(following_user) %>
                       <%= form_for(current_user.following_relationships.find_by(followed_id: following_user.id),
@@ -78,7 +78,7 @@
                           
                       <% end %>
                     <% else %>
-                      <%= render 'users/follow/follow' %>
+                      <%= render partial: 'users/follow/follow', locals: { follow_user_id: following_user.id } %>
                     <% end %>
                   </div>
                 </div>

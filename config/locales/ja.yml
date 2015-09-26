@@ -222,11 +222,13 @@ ja:
   common:
     login: "ログイン"
     modify: "編集する"
+    signUp: "新規登録"
     signUpNow: "今すぐ登録しよう！"
     posts: "microposts"
     favorites: "お気に入り"
     tweet: "ツイート"
     retweet: "リツイート"
+    retweet_by: "さんがリツイート"
     close: "閉じる"
     noComment: "未コメント"
     noSetting: "未設定"
@@ -263,12 +265,12 @@ ja:
   # sessions
   sessions:
     new:
-      newUser: "New user?"
+      newUser: "登録しない？"
       
   # shared
   shared:
     _error_message:
-      contains: "The form contains "
+      contains: "入力エラーがあります "
       
     _micropost_form:
       placeholder: "なんとなくつぶやく"
@@ -307,4 +309,5 @@ ja:
         birthday: "誕生日"
         color: "背景色"
         tamo: "タモリ化"
+        paging: "ページ自動読み込みON/OFF"  
         

@@ -10,12 +10,13 @@ class StaticPagesController < ApplicationController
       @microposts = current_user.microposts.build
       
       # タイムライン取得
-      # 投稿順に並び替え
+      # 投稿順に並び替え & ページネーション
       # includes : LEFT OUTER JOIN Users
-      @feed_items = current_user.feed_items.includes(:user).order(created_at: :desc)
+      @feed_items = current_user.feed_items.includes(:user).order(created_at: :desc).page(params[:page])
+      @current_page = params[:page]
       
       # リツイート一覧を取得
-      @retweet_items = current_user.retweet_items.includes(:user).includes(:retweet).order(created_at: :desc)
+      @retweet_items = current_user.retweet_items.includes(:user).order(created_at: :desc)
       
       #binding.pry
     end

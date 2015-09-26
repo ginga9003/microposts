@@ -68,17 +68,17 @@
                     <% end %>
                   </div>
                 </div>
-                <div id="follow_form" class="pull-right mgt10">
+                <div id="follow_form_<%= follower_user.id %>" class="pull-right mgt10">
                   <div class="text-center">
-                    <% if current_user.followed?(follower_user) %>
-                      <%= form_for(current_user.follower_relationships.find_by(follower_id: follower_user.id),
+                    <% if current_user.following?(follower_user) %>
+                      <%= form_for(current_user.following_relationships.find_by(followed_id: follower_user.id),
                           html: { method: :delete },
                           remote: true) do |f| %>
                       <%= f.submit t('common.follow.follow'), class: "btn" %>
                           
                       <% end %>
                     <% else %>
-                      <%= render 'users/follow/follow' %>
+                      <%= render partial: 'users/follow/follow', locals: { follow_user_id: follower_user.id } %>
                     <% end %>
                   </div>
                 </div>

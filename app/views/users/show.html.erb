@@ -1,28 +1,39 @@
 <div class="row">
   <!-- left side(userinfo) -->
-  <aside class="col-md-3">
-    <ul class="media-list" style="margin-top: 10px;">
-      <li class="media">
-        <div class="media-left">
-          <div class="bg-white gravatar_border gravatar_size">
-            <%= gravatar_for(@user, size: 70) %>
-          </div>
-        </div>
-        <div class="media-body">
-          <h1 class="media-heading mgt20" style="text-align: left;">
-          <% if @user.nickname != nil %>
-            <%= @user.nickname %>
-          <% else %>
-            @<%= @user.name %>
-          <% end %>
-          </h1>
-          <% if @user.nickname != nil %>
-            @<%= @user.name %>
-          <% end %>
-        </div>
-      </li>
-    </ul>
-    <%= render 'layouts/user_basic_info' %>
+  <aside class="col-md-3 user-info-wrapper bg-type<%= @user.color %>">
+    <div style="height: 70px;"></div>
+    <div class="pRelative" style="margin-top: 10px; padding: 0 10px; background-color: #fff;">
+      <div class="pAbsolute" style="top: -15px;">
+        <ul class="media-list">
+          <li class="media">
+            <div class="media-left">
+              <%= link_to user_path do %>
+              <div class="bg-white gravatar_border">
+                <%= gravatar_for(@user, { class: "gravatar-lg", size: 70 }) %>
+              </div>
+              <% end %>
+            </div>
+            <div class="media-body">
+              <%= link_to user_path do %>
+              <h2 class="media-heading mgt20" style="text-align: left;">
+              <% if @user.nickname != nil %>
+                <%= @user.nickname %>
+              <% else %>
+                @<%= @user.name %>
+              <% end %>
+              </h2>
+              <% end %>
+              <%= link_to user_path do %>
+                <% if @user.nickname != nil %>
+                @<%= @user.name %>
+                <% end %>
+              <% end %>
+            </div>
+          </li>
+        </ul>
+        <%= render 'layouts/user_basic_info' %>
+      </div>
+    </div>
   </aside>
   
   <!-- right side(microposts) -->

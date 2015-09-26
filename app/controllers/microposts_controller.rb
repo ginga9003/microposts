@@ -39,6 +39,6 @@ class MicropostsController < ApplicationController
   private
   # 入力パラメータ取得
   def micropost_params
-    params.require(:micropost).permit(:content, :retweet_id)
+    params.require(:micropost).permit(:content, :retweet_id, :image)
   end
 end

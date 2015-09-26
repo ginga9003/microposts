@@ -1,8 +1,16 @@
 <% if @feed_items.any? %>
-  <ol class="microposts">
-    <%# render @feed_items %>
+  <ol class="microposts" id="microposts">
     <% @feed_items.each do |micropost| %>
       <%= render partial: 'microposts/micropost', locals: { micropost_org: micropost } %>
     <% end %>
   </ol>
+  
+  <% if current_user.paging == 1 %>
+  <!-- auto paging -->
+  <div id="page-nav" style="display: none;"><a href="<% if controller.action_name == "home" %><%= root_url %><% else %><%= user_path %><% end %>?page=<%= @current_page.to_i+1 %>"></a></div>
+  <% else %>
+  <!-- pagination start -->
+  <%= paginate @feed_items %>
+  <!-- pagination end -->
+  <% end %>
 <% end %>

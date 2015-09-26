@@ -232,11 +232,13 @@ en:
   common:
     login: "Log In"
     modify: "Modify"
+    signUp: "Sign up"
     signUpNow: "Sign up now!"
     posts: "posts"
     favorites: "favorites"
     tweet: "tweet"
     retweet: "retweet"
+    retweet_by: "retweet"
     close: "close"
     noComment: "no comment"
     noSetting: "no setting"
@@ -324,4 +326,5 @@ en:
         birthday: "birthday"
         color: "color"
         tamo: "tamori"  
+        paging: "auto paging ON/OFF"  
   

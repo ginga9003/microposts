@@ -57,7 +57,7 @@
 <%#      <%= render @microposts 
       <%= render partial: 'microposts/micropost', collection: @microposts %> 
       <% @favorite_posts.each do |micropost| %>
-        <%= render partial: 'microposts/micropost', locals: { micropost: micropost } %>
+        <%= render partial: 'microposts/micropost', locals: { micropost_org: micropost } %>
       <% end %>
     </ol>
     <% end %>

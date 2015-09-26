@@ -1,1 +1,1 @@
-$('#favorite_form').html('<%= escape_javascript(render('users/favorite/unFavorite', { micropost: @favorite })) %>');
+$('#favorite_form_wrapper_<%= @favorite.id %>').html('<%= escape_javascript(render('users/favorite/unFavorite', { micropost: @favorite })) %>');

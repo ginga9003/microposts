@@ -19,13 +19,7 @@ $(function() {
     $(this).addClass('glyphicon-star');
   });
   
-  // リツイートダイアログ表示
-  $('.glyphicon-retweet').click(function () {
-    $('#retweet_id').val($(this).attr('data-micropost'));
-    $('#retweet_content').val('');  // 空にする
-    $('#retweetModal').modal();
-  });
-  
+  // リツイートダイアログでボタン名変更
   $('#retweet_content').keyup(function() {
     if ($('#retweet_content').val().length != 0) {
       // ボタン名をツイートに変更する
@@ -43,6 +37,11 @@ $(function() {
   $('#retweetModal').on('show.bs.modal', function (event) {
   });
   
+  // 画像選択エリアの表示/非表示
+  $('.glyphicon-camera').click(function() {
+    $('#image_uploader').toggle();
+  });
+  
   // フラッシュメッセージを消す
   $('.alert-success').fadeOut(3000);
 })
@@ -58,7 +57,14 @@ function execUnFavorite(micropost_id) {
 }
 
 // リツイート
-//function execRetweet(micropost_id) {
-//  $('#retweet_form_' + micropost_id).submit();
-//}
+function execRetweet(micropost_id) {
+  $('#retweet_id').val(micropost_id);
+  $('#retweet_content').val('');  // 空にする
+  $('#retweetModal').modal();
+}
+
+// リツイート解除
+function execUnRetweet(micropost_id) {
+  $('#unRetweet_form_' + micropost_id).submit();
+}
 
