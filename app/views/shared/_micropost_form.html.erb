@@ -1,10 +1,10 @@
 <%= form_for(@microposts) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   <div class="field">
-    <%= f.text_area :content, placeholder: t('shared._micropost_form.placeholder') %>
+    <%= f.text_area :content, placeholder: t('shared._micropost_form.placeholder'), :id => 'tweet-area' %>
   </div>
   <span class="f15em glyphicon glyphicon-camera" style="margin: -5px 0 10px 5px;"></span>
   <%= f.file_field :image, :style => 'display: none;', :id => 'image_uploader' %>
   <%= f.hidden_field :image_cache %>
-  <%= f.submit t('shared._micropost_form.post'), class: "btn btn-primary" %>
+  <%= f.submit t('shared._micropost_form.post'), class: "btn btn-primary", :id => 'tweet-btn', :disabled => 'disabled'  %>
 <% end %>

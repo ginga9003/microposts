@@ -32,6 +32,17 @@ $(function() {
     }
   });
   
+  // ツイートボタンを有効にする
+  $('#tweet-area').keyup(function() {
+    if ($('#tweet-area').val().length != 0) {
+      // ボタンを有効にする
+      $('#tweet-btn').prop('disabled', false);
+    }
+    else {
+      $('#tweet-btn').prop('disabled', true);
+    }
+  });
+  
   // リツイートダイアログ起動時の処理
   // 現状特になし
   $('#retweetModal').on('show.bs.modal', function (event) {
