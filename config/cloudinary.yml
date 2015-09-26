@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: hbyskbiht
+  api_key: '757815798529923'
+  api_secret: Z9s-pdzMFX8ZtIM1KOEwKhdk_gs
+  enhance_image_tag: true
+  static_image_support: false
+production:
+  cloud_name: hbyskbiht
+  api_key: '757815798529923'
+  api_secret: Z9s-pdzMFX8ZtIM1KOEwKhdk_gs
+  enhance_image_tag: true
+  static_image_support: true
+test:
+  cloud_name: hbyskbiht
+  api_key: '757815798529923'
+  api_secret: Z9s-pdzMFX8ZtIM1KOEwKhdk_gs
+  enhance_image_tag: true
+  static_image_support: false
